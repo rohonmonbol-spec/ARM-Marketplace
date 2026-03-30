@@ -74,7 +74,7 @@ const INITIAL_PRODUCTS: Product[] = [
   {
     id: '1',
     name: 'Camera Drone',
-    price: 899.99,
+    price: 74999,
     sellerId: 's1',
     sellerName: 'Nebula Tech',
     category: 'Electronics',
@@ -86,7 +86,7 @@ const INITIAL_PRODUCTS: Product[] = [
   {
     id: '2',
     name: 'Bamboo Lamp',
-    price: 49.00,
+    price: 3999,
     sellerId: 's2',
     sellerName: 'GreenLiving',
     category: 'Home Decor',
@@ -98,7 +98,7 @@ const INITIAL_PRODUCTS: Product[] = [
   {
     id: '3',
     name: 'Pocket Tool',
-    price: 125.50,
+    price: 9999,
     sellerId: 's1',
     sellerName: 'Nebula Tech',
     category: 'Tools',
@@ -110,7 +110,7 @@ const INITIAL_PRODUCTS: Product[] = [
   {
     id: '4',
     name: 'Wool Blanket',
-    price: 75.00,
+    price: 5999,
     sellerId: 's3',
     sellerName: 'Arctic Loom',
     category: 'Textiles',
@@ -191,7 +191,7 @@ const Home = () => {
                 style={{ height: '100%', width: '100%', background: `url(${p.image}) center/cover` }} 
               />
               <div style={{ position: 'absolute', top: '1rem', right: '1rem', background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(10px)', color: 'white', padding: '0.4rem 1rem', borderRadius: '20px', fontSize: '0.9rem', fontWeight: 700 }}>
-                ${p.price}
+                ₹{p.price}
               </div>
             </div>
             
@@ -390,7 +390,7 @@ const SellerDashboard = () => {
         image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=400',
         rating: 5,
         reviews: [],
-        price: 99.99
+        price: 7999
       });
       setIsAdding(true);
     }
@@ -535,9 +535,9 @@ const SellerDashboard = () => {
                         <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>ID: {p.id}</div>
                      </div>
                   </td>
-                  <td style={{ fontWeight: 800, fontSize: '1.1rem' }}>${p.price.toFixed(2)}</td>
+                  <td style={{ fontWeight: 800, fontSize: '1.1rem' }}>₹{p.price.toFixed(2)}</td>
                   <td><span style={{ color: '#4ade80', fontSize: '0.8rem', background: 'rgba(74,222,128,0.1)', padding: '6px 16px', borderRadius: '30px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px' }}>Active</span></td>
-                  <td style={{ color: 'var(--accent)', fontWeight: 800 }}>${(p.price * 0.95).toFixed(2)}</td>
+                  <td style={{ color: 'var(--accent)', fontWeight: 800 }}>₹{(p.price * 0.95).toFixed(2)}</td>
                   <td style={{ paddingRight: '2rem' }}>
                     <div style={{ display: 'flex', gap: '1.5rem' }}>
                       <button onClick={() => openForm(p)} style={{ background: 'transparent', color: 'var(--primary)', fontWeight: 800, fontSize: '0.9rem' }}>EDIT</button>
@@ -639,7 +639,7 @@ const ProductDetail = () => {
             <div style={{ color: 'var(--text-dim)', fontSize: '1.1rem' }}>{product.reviews.length} authentic reviews</div>
           </div>
 
-          <div style={{ fontSize: '3.5rem', fontWeight: 900, marginBottom: '3rem', letterSpacing: '-2px' }}>${product.price.toFixed(2)}</div>
+          <div style={{ fontSize: '3.5rem', fontWeight: 900, marginBottom: '3rem', letterSpacing: '-2px' }}>₹{product.price.toFixed(2)}</div>
           
           <p style={{ color: 'var(--text-dim)', fontSize: '1.25rem', marginBottom: '4rem', lineHeight: 1.8 }}>{product.description}</p>
           
@@ -790,7 +790,7 @@ const CartView = () => {
                 </div>
                 
                 <div style={{ textAlign: 'right' }}>
-                  <div style={{ fontSize: '2.2rem', fontWeight: 900, color: 'white', letterSpacing: '-1.5px' }}>${(item.price * item.qty).toFixed(2)}</div>
+                  <div style={{ fontSize: '2.2rem', fontWeight: 900, color: 'white', letterSpacing: '-1.5px' }}>₹{(item.price * item.qty).toFixed(2)}</div>
                   <div style={{ fontSize: '0.9rem', color: 'var(--text-muted)', fontWeight: 600 }}>Secure Delivery Inbound</div>
                 </div>
               </motion.div>
