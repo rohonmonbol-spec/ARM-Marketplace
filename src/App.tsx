@@ -439,10 +439,14 @@ const SellerDashboard = () => {
                   <div style={{ 
                     width: '120px', height: '120px', borderRadius: '16px', overflow: 'hidden',
                     border: '2px dashed var(--border-color)', flexShrink: 0,
-                    background: formData.image ? `url(${formData.image}) center/cover` : 'rgba(255,255,255,0.03)',
+                    backgroundColor: 'rgba(255,255,255,0.03)',
                     display: 'flex', alignItems: 'center', justifyContent: 'center'
                   }}>
-                    {!formData.image && <Package size={32} style={{ color: 'var(--text-muted)', opacity: 0.3 }} />}
+                    {formData.image ? (
+                      <img src={formData.image} alt="Product Preview" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    ) : (
+                      <Package size={32} style={{ color: 'var(--text-muted)', opacity: 0.3 }} />
+                    )}
                   </div>
                   <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                     <input 
