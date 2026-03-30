@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useMemo } from 'react';
+import { createContext, useContext, useState, useMemo, useEffect } from 'react';
 import { HashRouter, Routes, Route, Link, useParams, useNavigate } from 'react-router-dom';
 import { 
   ShoppingBag, 
@@ -873,7 +873,9 @@ const App = () => {
   const [allProducts, setAllProducts] = useState<Product[]>(INITIAL_PRODUCTS);
   const [user, setUser] = useState<UserProfile | null>(null);
   const [cart, setCart] = useState<{id: string, qty: number}[]>([]);
-  const [location, setLocation] = useState<string>('New York, USA');
+  const [locationLoading, setLocationLoading] = useState(true);
+  const [locationError, setLocationError] = useState(false);
+  const [location, setLocation] = useState<string>('Detecting...');
 
   const addToCart = (pid: string) => {
     setCart(prev => {
@@ -888,7 +890,7 @@ const App = () => {
   };
 
   const addReview = (pid: string, review: Review) => {
-    setAllProducts(prev => prev.map(p => 
+    setAllProducts(prev => prev.map(p =>
       p.id === pid ? { ...p, reviews: [review, ...p.reviews], rating: Number(((p.rating * p.reviews.length + review.rating) / (p.reviews.length + 1)).toFixed(1)) } : p
     ));
   };
@@ -897,10 +899,45 @@ const App = () => {
   const updateProduct = (p: Product) => setAllProducts(prev => prev.map(item => item.id === p.id ? p : item));
   const deleteProduct = (pid: string) => setAllProducts(prev => prev.filter(p => p.id !== pid));
 
-  const updateLocation = () => {
-    const newLoc = prompt("Enter your delivery city and country:", location);
-    if (newLoc) setLocation(newLoc);
+
+  const detectLocation = () => {
+    if (!navigator.geolocation) {
+      setLocation('Location not supported');
+      setLocationLoading(false);
+      setLocationError(true);
+      return;
+    }
+    setLocationLoading(true);
+    setLocationError(false);
+    navigator.geolocation.getCurrentPosition(
+      async (pos) => {
+        try {
+          const { latitude, longitude } = pos.coords;
+          const res = await fetch(
+            `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`,
+            { headers: { 'Accept-Language': 'en' } }
+          );
+          const data = await res.json();
+          const city = data.address?.city || data.address?.town || data.address?.village || data.address?.county || 'Unknown City';
+          const country = data.address?.country || '';
+          setLocation(`${city}, ${country}`);
+        } catch {
+          setLocation('Location fetch failed');
+          setLocationError(true);
+        } finally {
+          setLocationLoading(false);
+        }
+      },
+      () => {
+        setLocation('Location denied');
+        setLocationLoading(false);
+        setLocationError(true);
+      },
+      { timeout: 10000, maximumAge: 60000 }
+    );
   };
+
+  useEffect(() => { detectLocation(); }, []);
 
   return (
     <AppContext.Provider value={{ products: allProducts, user, location, cart, addToCart, removeFromCart, addReview, addProduct, updateProduct, deleteProduct, setUser, setLocation }}>
@@ -921,11 +958,25 @@ const App = () => {
               
               <motion.div 
                 whileHover={{ scale: 1.05 }}
-                onClick={updateLocation}
-                style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'var(--text-dim)', fontSize: '0.9rem', background: 'rgba(255,255,255,0.03)', padding: '0.6rem 1.25rem', borderRadius: '30px', border: '1px solid var(--border-color)' }}
+                onClick={detectLocation}
+                style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'var(--text-dim)', fontSize: '0.9rem', background: 'rgba(255,255,255,0.03)', padding: '0.6rem 1.25rem', borderRadius: '30px', border: `1px solid ${locationError ? 'rgba(255,100,100,0.4)' : 'var(--border-color)'}` }}
               >
-                <MapPin size={18} color="var(--primary)" />
-                <span><span style={{ color: 'var(--text-muted)' }}>Ship to:</span> <b style={{ color: 'white' }}>{location}</b></span>
+                {locationLoading ? (
+                  <motion.div
+                    animate={{ scale: [1, 1.3, 1], opacity: [1, 0.5, 1] }}
+                    transition={{ repeat: Infinity, duration: 1.2 }}
+                  >
+                    <MapPin size={18} color="var(--primary)" />
+                  </motion.div>
+                ) : (
+                  <MapPin size={18} color={locationError ? '#ff6464' : 'var(--primary)'} />
+                )}
+                <span>
+                  <span style={{ color: 'var(--text-muted)' }}>Deliver to:</span>{' '}
+                  <b style={{ color: locationLoading ? 'var(--text-dim)' : 'white' }}>
+                    {locationLoading ? 'Detecting...' : location}
+                  </b>
+                </span>
                 <ChevronDown size={14} />
               </motion.div>
             </div>
