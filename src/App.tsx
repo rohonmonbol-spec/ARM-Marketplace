@@ -353,6 +353,7 @@ const SellerDashboard = () => {
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   const [isAdding, setIsAdding] = useState(false);
   const [formData, setFormData] = useState<Partial<Product>>({});
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'products' | 'earnings'>('dashboard');
 
   if (user?.role !== 'seller') {
     return (
@@ -375,6 +376,8 @@ const SellerDashboard = () => {
   }
 
   const sellerProducts = products.filter(p => p.sellerId === user.id);
+  const totalRevenue = sellerProducts.reduce((sum, p) => sum + p.price * 0.95, 0);
+  const totalProducts = sellerProducts.length;
 
   const openForm = (p?: Product) => {
     if (p) {
@@ -390,7 +393,8 @@ const SellerDashboard = () => {
         image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=400',
         rating: 5,
         reviews: [],
-        price: 7999
+        price: 7999,
+        description: ''
       });
       setIsAdding(true);
     }
@@ -406,21 +410,53 @@ const SellerDashboard = () => {
     }
     setEditingProduct(null);
     setIsAdding(false);
+    setActiveTab('products');
   };
+
+  const sidebarItems = [
+    { icon: <LayoutDashboard size={22} />, label: 'Dashboard', key: 'dashboard' as const },
+    { icon: <Package size={22} />, label: 'My Products', key: 'products' as const },
+    { icon: <TrendingUp size={22} />, label: 'Earnings', key: 'earnings' as const }
+  ];
 
   return (
     <div className="container stager-in" style={{ display: 'grid', gridTemplateColumns: '280px 1fr', gap: '4rem', padding: '6rem 0' }}>
-      {/* Modal - Could be moved to a separate component */}
+      {/* Product Add/Edit Modal */}
       {(editingProduct || isAdding) && (
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(2, 6, 23, 0.95)', zIndex: 2000, display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '2rem', backdropFilter: 'blur(20px)' }}>
           <motion.div 
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             className="glass-card" 
-            style={{ width: '100%', maxWidth: '600px', padding: '4rem', background: 'var(--bg-main)' }}
+            style={{ width: '100%', maxWidth: '650px', padding: '4rem', background: 'var(--bg-main)', maxHeight: '90vh', overflowY: 'auto' }}
           >
             <h3 style={{ fontSize: '2.5rem', marginBottom: '3rem' }}>{editingProduct ? 'Edit Product' : 'Add New Product'}</h3>
             <form onSubmit={handleSave} style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+              {/* Product Image */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                <label style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--text-dim)' }}>Product Photo</label>
+                <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'flex-start' }}>
+                  <div style={{ 
+                    width: '120px', height: '120px', borderRadius: '16px', overflow: 'hidden',
+                    border: '2px dashed var(--border-color)', flexShrink: 0,
+                    background: formData.image ? `url(${formData.image}) center/cover` : 'rgba(255,255,255,0.03)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center'
+                  }}>
+                    {!formData.image && <Package size={32} style={{ color: 'var(--text-muted)', opacity: 0.3 }} />}
+                  </div>
+                  <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                    <input 
+                      type="url" value={formData.image || ''} 
+                      onChange={e => setFormData({...formData, image: e.target.value})}
+                      className="input-premium"
+                      placeholder="Paste image URL here..."
+                      style={{ fontSize: '0.9rem' }}
+                    />
+                    <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Paste a link to your product image (e.g. from Unsplash, Imgur, etc.)</span>
+                  </div>
+                </div>
+              </div>
+
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                 <label style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--text-dim)' }}>Product Name</label>
                 <input 
@@ -449,6 +485,8 @@ const SellerDashboard = () => {
                     <option value="Home Decor">Home Decor</option>
                     <option value="Tools">Tools</option>
                     <option value="Textiles">Textiles</option>
+                    <option value="Fashion">Fashion</option>
+                    <option value="Books">Books</option>
                   </select>
                 </div>
               </div>
@@ -471,17 +509,15 @@ const SellerDashboard = () => {
         </div>
       )}
 
+      {/* Sidebar */}
       <aside>
         <div className="glass-card" style={{ padding: '2.5rem', position: 'sticky', top: '120px', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-          {[
-            { icon: <LayoutDashboard size={22} />, label: 'Dashboard', active: true },
-            { icon: <Package size={22} />, label: 'My Products' },
-            { icon: <TrendingUp size={22} />, label: 'Earnings' }
-          ].map((item, i) => (
+          {sidebarItems.map((item, i) => (
             <motion.div 
               key={i}
               whileHover={{ x: 10 }}
-              style={{ display: 'flex', alignItems: 'center', gap: '1rem', color: item.active ? 'var(--primary)' : 'var(--text-dim)', cursor: 'pointer', fontWeight: item.active ? 800 : 600, fontSize: '1.1rem' }}
+              onClick={() => setActiveTab(item.key)}
+              style={{ display: 'flex', alignItems: 'center', gap: '1rem', color: activeTab === item.key ? 'var(--primary)' : 'var(--text-dim)', cursor: 'pointer', fontWeight: activeTab === item.key ? 800 : 600, fontSize: '1.1rem' }}
             >
               {item.icon} <span>{item.label}</span>
             </motion.div>
@@ -493,6 +529,7 @@ const SellerDashboard = () => {
         </div>
       </aside>
 
+      {/* Main Content */}
       <main>
         <motion.div 
            initial={{ opacity: 0, y: 20 }}
@@ -500,7 +537,11 @@ const SellerDashboard = () => {
            style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '4rem' }}
         >
           <div>
-            <h2 style={{ fontSize: '3.5rem', marginBottom: '0.5rem' }}>Seller Dashboard</h2>
+            <h2 style={{ fontSize: '3.5rem', marginBottom: '0.5rem' }}>
+              {activeTab === 'dashboard' && 'Seller Dashboard'}
+              {activeTab === 'products' && 'My Products'}
+              {activeTab === 'earnings' && 'My Earnings'}
+            </h2>
             <p style={{ color: 'var(--text-dim)', fontSize: '1.2rem' }}>Hello, <span style={{ color: 'white', fontWeight: 800 }}>{user.name}</span>! Your business is growing.</p>
           </div>
           <motion.button 
@@ -514,52 +555,150 @@ const SellerDashboard = () => {
           </motion.button>
         </motion.div>
 
-        <div className="glass-card" style={{ padding: '0', overflow: 'hidden' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
-            <thead>
-              <tr style={{ background: 'rgba(255,255,255,0.02)', borderBottom: '1px solid var(--border-color)' }}>
-                <th style={{ padding: '2rem' }}>Product Entity</th>
-                <th>Valuation</th>
-                <th>Market Status</th>
-                <th>Net Revenue</th>
-                <th style={{ paddingRight: '2rem' }}>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {sellerProducts.length > 0 ? sellerProducts.map(p => (
-                <tr key={p.id} style={{ borderBottom: '1px solid var(--border-color)' }}>
-                  <td style={{ padding: '2rem', display: 'flex', alignItems: 'center', gap: '2rem' }}>
-                     <div style={{ width: '60px', height: '60px', background: `url(${p.image}) center/cover`, borderRadius: '14px', border: '1px solid var(--border-color)' }} />
-                     <div>
-                        <div style={{ fontWeight: 800, fontSize: '1.1rem' }}>{p.name}</div>
-                        <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>ID: {p.id}</div>
-                     </div>
-                  </td>
-                  <td style={{ fontWeight: 800, fontSize: '1.1rem' }}>₹{p.price.toFixed(2)}</td>
-                  <td><span style={{ color: '#4ade80', fontSize: '0.8rem', background: 'rgba(74,222,128,0.1)', padding: '6px 16px', borderRadius: '30px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px' }}>Active</span></td>
-                  <td style={{ color: 'var(--accent)', fontWeight: 800 }}>₹{(p.price * 0.95).toFixed(2)}</td>
-                  <td style={{ paddingRight: '2rem' }}>
-                    <div style={{ display: 'flex', gap: '1.5rem' }}>
-                      <button onClick={() => openForm(p)} style={{ background: 'transparent', color: 'var(--primary)', fontWeight: 800, fontSize: '0.9rem' }}>EDIT</button>
-                      <button onClick={() => deleteProduct(p.id)} style={{ background: 'transparent', color: '#ff4b4b', fontWeight: 800, fontSize: '0.9rem' }}>DELETE</button>
-                    </div>
-                  </td>
-                </tr>
-              )) : (
-                <tr>
-                   <td colSpan={5} style={{ padding: '10rem 0', textAlign: 'center', color: 'var(--text-dim)' }}>
-                     <Package size={80} style={{ opacity: 0.05, marginBottom: '2rem' }} />
-                     <p style={{ fontSize: '1.1rem' }}>No products yet. Add your first product!</p>
-                   </td>
-                </tr>
+        {/* Dashboard Tab */}
+        {activeTab === 'dashboard' && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '2rem', marginBottom: '4rem' }}>
+              <div className="glass-card" style={{ padding: '2.5rem', textAlign: 'center' }}>
+                <Package size={32} style={{ color: 'var(--primary)', marginBottom: '1rem' }} />
+                <div style={{ fontSize: '2.5rem', fontWeight: 900, marginBottom: '0.5rem' }}>{totalProducts}</div>
+                <div style={{ color: 'var(--text-dim)', fontSize: '0.95rem' }}>Total Products</div>
+              </div>
+              <div className="glass-card" style={{ padding: '2.5rem', textAlign: 'center' }}>
+                <TrendingUp size={32} style={{ color: '#4ade80', marginBottom: '1rem' }} />
+                <div style={{ fontSize: '2.5rem', fontWeight: 900, marginBottom: '0.5rem' }}>₹{totalRevenue.toFixed(0)}</div>
+                <div style={{ color: 'var(--text-dim)', fontSize: '0.95rem' }}>Total Earnings</div>
+              </div>
+              <div className="glass-card" style={{ padding: '2.5rem', textAlign: 'center' }}>
+                <Star size={32} style={{ color: 'var(--accent)', marginBottom: '1rem' }} />
+                <div style={{ fontSize: '2.5rem', fontWeight: 900, marginBottom: '0.5rem' }}>
+                  {totalProducts > 0 ? (sellerProducts.reduce((s, p) => s + p.rating, 0) / totalProducts).toFixed(1) : '0'}
+                </div>
+                <div style={{ color: 'var(--text-dim)', fontSize: '0.95rem' }}>Average Rating</div>
+              </div>
+            </div>
+            <h3 style={{ fontSize: '1.5rem', marginBottom: '2rem', color: 'var(--text-dim)' }}>Recent Products</h3>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
+              {sellerProducts.slice(0, 4).map(p => (
+                <div key={p.id} className="glass-card" style={{ display: 'flex', gap: '1.5rem', padding: '1.5rem', alignItems: 'center' }}>
+                  <div style={{ width: '60px', height: '60px', background: `url(${p.image}) center/cover`, borderRadius: '12px', flexShrink: 0 }} />
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontWeight: 700, marginBottom: '0.3rem' }}>{p.name}</div>
+                    <div style={{ color: 'var(--text-dim)', fontSize: '0.9rem' }}>₹{p.price} · {p.category}</div>
+                  </div>
+                  <span style={{ color: '#4ade80', fontSize: '0.75rem', background: 'rgba(74,222,128,0.1)', padding: '4px 12px', borderRadius: '20px', fontWeight: 700 }}>Active</span>
+                </div>
+              ))}
+              {totalProducts === 0 && (
+                <div className="glass-card" style={{ gridColumn: '1 / -1', padding: '5rem', textAlign: 'center', color: 'var(--text-dim)' }}>
+                  No products yet. Click "Add New Product" to get started!
+                </div>
               )}
-            </tbody>
-          </table>
-        </div>
+            </div>
+          </motion.div>
+        )}
+
+        {/* My Products Tab */}
+        {activeTab === 'products' && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+            <div className="glass-card" style={{ padding: '0', overflow: 'hidden' }}>
+              <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+                <thead>
+                  <tr style={{ background: 'rgba(255,255,255,0.02)', borderBottom: '1px solid var(--border-color)' }}>
+                    <th style={{ padding: '2rem' }}>Product</th>
+                    <th>Price</th>
+                    <th>Status</th>
+                    <th>Earnings</th>
+                    <th style={{ paddingRight: '2rem' }}>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {sellerProducts.length > 0 ? sellerProducts.map(p => (
+                    <tr key={p.id} style={{ borderBottom: '1px solid var(--border-color)' }}>
+                      <td style={{ padding: '2rem', display: 'flex', alignItems: 'center', gap: '2rem' }}>
+                         <div style={{ width: '60px', height: '60px', background: `url(${p.image}) center/cover`, borderRadius: '14px', border: '1px solid var(--border-color)' }} />
+                         <div>
+                            <div style={{ fontWeight: 800, fontSize: '1.1rem' }}>{p.name}</div>
+                            <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>ID: {p.id}</div>
+                         </div>
+                      </td>
+                      <td style={{ fontWeight: 800, fontSize: '1.1rem' }}>₹{p.price.toFixed(2)}</td>
+                      <td><span style={{ color: '#4ade80', fontSize: '0.8rem', background: 'rgba(74,222,128,0.1)', padding: '6px 16px', borderRadius: '30px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px' }}>Active</span></td>
+                      <td style={{ color: 'var(--accent)', fontWeight: 800 }}>₹{(p.price * 0.95).toFixed(2)}</td>
+                      <td style={{ paddingRight: '2rem' }}>
+                        <div style={{ display: 'flex', gap: '1.5rem' }}>
+                          <button onClick={() => openForm(p)} style={{ background: 'transparent', color: 'var(--primary)', fontWeight: 800, fontSize: '0.9rem' }}>Edit</button>
+                          <button onClick={() => deleteProduct(p.id)} style={{ background: 'transparent', color: '#ff4b4b', fontWeight: 800, fontSize: '0.9rem' }}>Delete</button>
+                        </div>
+                      </td>
+                    </tr>
+                  )) : (
+                    <tr>
+                       <td colSpan={5} style={{ padding: '10rem 0', textAlign: 'center', color: 'var(--text-dim)' }}>
+                         <Package size={80} style={{ opacity: 0.05, marginBottom: '2rem' }} />
+                         <p style={{ fontSize: '1.1rem' }}>No products yet. Add your first product!</p>
+                       </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </motion.div>
+        )}
+
+        {/* Earnings Tab */}
+        {activeTab === 'earnings' && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem', marginBottom: '4rem' }}>
+              <div className="glass-card" style={{ padding: '3rem' }}>
+                <div style={{ color: 'var(--text-dim)', fontSize: '0.9rem', marginBottom: '1rem', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: 700 }}>Total Sales Revenue</div>
+                <div style={{ fontSize: '3rem', fontWeight: 900 }}>₹{(totalRevenue * 1.05).toFixed(2)}</div>
+                <div style={{ color: 'var(--text-dim)', fontSize: '0.9rem', marginTop: '0.5rem' }}>From {totalProducts} products</div>
+              </div>
+              <div className="glass-card" style={{ padding: '3rem' }}>
+                <div style={{ color: 'var(--text-dim)', fontSize: '0.9rem', marginBottom: '1rem', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: 700 }}>Your Earnings (95%)</div>
+                <div style={{ fontSize: '3rem', fontWeight: 900, color: '#4ade80' }}>₹{totalRevenue.toFixed(2)}</div>
+                <div style={{ color: 'var(--text-dim)', fontSize: '0.9rem', marginTop: '0.5rem' }}>After 5% platform fee</div>
+              </div>
+            </div>
+            
+            <h3 style={{ fontSize: '1.5rem', marginBottom: '2rem' }}>Earnings by Product</h3>
+            <div className="glass-card" style={{ padding: 0, overflow: 'hidden' }}>
+              {sellerProducts.length > 0 ? sellerProducts.map((p, i) => (
+                <div key={p.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1.5rem 2rem', borderBottom: i < sellerProducts.length - 1 ? '1px solid var(--border-color)' : 'none' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+                    <div style={{ width: '45px', height: '45px', background: `url(${p.image}) center/cover`, borderRadius: '10px' }} />
+                    <div>
+                      <div style={{ fontWeight: 700 }}>{p.name}</div>
+                      <div style={{ color: 'var(--text-dim)', fontSize: '0.85rem' }}>{p.category} · ₹{p.price}</div>
+                    </div>
+                  </div>
+                  <div style={{ textAlign: 'right' }}>
+                    <div style={{ fontWeight: 800, color: '#4ade80' }}>₹{(p.price * 0.95).toFixed(2)}</div>
+                    <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>your share</div>
+                  </div>
+                </div>
+              )) : (
+                <div style={{ padding: '5rem', textAlign: 'center', color: 'var(--text-dim)' }}>
+                  No earnings yet. Start by adding products!
+                </div>
+              )}
+            </div>
+
+            <div className="glass-card" style={{ marginTop: '2rem', padding: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'rgba(74, 222, 128, 0.05)' }}>
+              <div>
+                <div style={{ fontWeight: 800, fontSize: '1.1rem' }}>Platform Fee</div>
+                <div style={{ color: 'var(--text-dim)', fontSize: '0.9rem' }}>5% is deducted from each sale</div>
+              </div>
+              <div style={{ fontWeight: 800, color: 'var(--accent)', fontSize: '1.2rem' }}>₹{(totalRevenue * 0.05 / 0.95).toFixed(2)}</div>
+            </div>
+          </motion.div>
+        )}
       </main>
     </div>
   );
 };
+
 
 // ... CartView ...
 
