@@ -134,10 +134,10 @@ const Home = () => {
            transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <h1 className="gradient-text" style={{ fontSize: '4.5rem', marginBottom: '1.5rem', lineHeight: 1 }}>
-            India ka <br /> Online Bazaar
+            India's Best <br /> Online Marketplace
           </h1>
           <p style={{ color: 'var(--text-dim)', fontSize: '1.4rem', maxWidth: '700px', margin: '0 auto 3rem' }}>
-            Hamare verified sellers se best products kharido. Achhi quality, safe payment.
+            Buy great products from our trusted sellers. Good quality, safe payment, fast delivery.
           </p>
         </motion.div>
         
@@ -151,7 +151,7 @@ const Home = () => {
             <Search size={24} color="var(--primary)" style={{ marginLeft: '1rem' }} />
             <input 
               type="text" 
-              placeholder="Kya dhundh rahe ho?..." 
+              placeholder="What are you looking for?" 
               style={{ background: 'transparent', border: 'none', color: 'white', padding: '1rem', width: '100%', outline: 'none', fontSize: '1.1rem' }} 
             />
             <button className="btn-primary" style={{ padding: '0.8rem 2rem', borderRadius: '30px' }}>Search</button>
@@ -212,7 +212,7 @@ const Home = () => {
               </div>
               
               <Link to={`/product/${p.id}`} className="btn-primary" style={{ display: 'block', textAlign: 'center', textDecoration: 'none', borderRadius: '14px', padding: '1rem' }}>
-                Product Dekho
+                View Product
               </Link>
             </div>
           </motion.div>
@@ -246,8 +246,8 @@ const LoginPage = () => {
         style={{ width: '100%', maxWidth: '480px', padding: '3.5rem' }}
       >
         <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-          <h2 style={{ fontSize: '2.5rem', marginBottom: '0.75rem' }}>Wapas Aaye!</h2>
-          <p style={{ color: 'var(--text-dim)' }}>Login karke shopping shuru karo.</p>
+          <h2 style={{ fontSize: '2.5rem', marginBottom: '0.75rem' }}>Welcome Back!</h2>
+          <p style={{ color: 'var(--text-dim)' }}>Login to continue shopping.</p>
         </div>
         
         <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
@@ -273,12 +273,12 @@ const LoginPage = () => {
             />
           </div>
           <button type="submit" className="btn-primary" style={{ marginTop: '1rem', padding: '1.25rem' }}>
-            Login Karo
+            Login
           </button>
         </form>
         
         <div style={{ marginTop: '2.5rem', textAlign: 'center', color: 'var(--text-dim)', fontSize: '0.95rem' }}>
-          Naya account chahiye? <Link to="/signup" style={{ color: 'var(--primary)', textDecoration: 'none', fontWeight: 700 }}>Sign Up Karo</Link>
+          New here? <Link to="/signup" style={{ color: 'var(--primary)', textDecoration: 'none', fontWeight: 700 }}>Create Account</Link>
         </div>
       </motion.div>
       <div className="orbit" style={{ top: '20%', left: '10%', width: '300px', height: '300px', opacity: 0.2 }} />
@@ -310,8 +310,8 @@ const SignupPage = () => {
         style={{ width: '100%', maxWidth: '480px', padding: '3.5rem' }}
       >
         <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-          <h2 style={{ fontSize: '2.5rem', marginBottom: '0.75rem' }}>Seller Bano</h2>
-          <p style={{ color: 'var(--text-dim)' }}>Apna samaan becho, paise kamao.</p>
+          <h2 style={{ fontSize: '2.5rem', marginBottom: '0.75rem' }}>Become a Seller</h2>
+          <p style={{ color: 'var(--text-dim)' }}>Sell your products and earn money easily.</p>
         </div>
         
         <form onSubmit={handleSignup} style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
@@ -337,11 +337,11 @@ const SignupPage = () => {
             />
           </div>
           <button type="submit" className="btn-primary" style={{ marginTop: '1rem', padding: '1.25rem' }}>
-            Account Banao
+            Create Account
           </button>
         </form>
         <p style={{ marginTop: '2.5rem', textAlign: 'center', color: 'var(--text-dim)', fontSize: '0.95rem' }}>
-          Pehle se account hai? <Link to="/login" style={{ color: 'var(--primary)', textDecoration: 'none', fontWeight: 700 }}>Login Karo</Link>
+          Already have an account? <Link to="/login" style={{ color: 'var(--primary)', textDecoration: 'none', fontWeight: 700 }}>Login</Link>
         </p>
       </motion.div>
       <div className="orbit" style={{ bottom: '10%', right: '5%', width: '400px', height: '400px', opacity: 0.1, background: 'radial-gradient(circle, var(--accent) 0%, transparent 70%)' }} />
@@ -364,10 +364,10 @@ const SellerDashboard = () => {
           style={{ maxWidth: '600px', margin: '0 auto', padding: '5rem' }}
         >
           <Store size={64} style={{ color: 'var(--primary)', marginBottom: '2.5rem' }} />
-          <h2 style={{ fontSize: '3rem', marginBottom: '1.5rem' }}>Seller Bano</h2>
-          <p style={{ color: 'var(--text-dim)', fontSize: '1.2rem', marginBottom: '3.5rem' }}>Apna product liste karo aur paise kamana shuru karo.</p>
+          <h2 style={{ fontSize: '3rem', marginBottom: '1.5rem' }}>Start Selling</h2>
+          <p style={{ color: 'var(--text-dim)', fontSize: '1.2rem', marginBottom: '3.5rem' }}>List your products and start earning money today.</p>
           <button onClick={() => setUser({ id: 's1', name: 'Nebula Tech', role: 'seller', location: location })} className="btn-primary" style={{ padding: '1.25rem 3rem' }}>
-            Selling Shuru Karo
+            Start Selling
           </button>
         </motion.div>
       </div>
@@ -419,10 +419,10 @@ const SellerDashboard = () => {
             className="glass-card" 
             style={{ width: '100%', maxWidth: '600px', padding: '4rem', background: 'var(--bg-main)' }}
           >
-            <h3 style={{ fontSize: '2.5rem', marginBottom: '3rem' }}>{editingProduct ? 'Product Update Karo' : 'Naya Product Daalo'}</h3>
+            <h3 style={{ fontSize: '2.5rem', marginBottom: '3rem' }}>{editingProduct ? 'Edit Product' : 'Add New Product'}</h3>
             <form onSubmit={handleSave} style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                <label style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--text-dim)' }}>Product ka Naam</label>
+                <label style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--text-dim)' }}>Product Name</label>
                 <input 
                   type="text" required value={formData.name || ''} 
                   onChange={e => setFormData({...formData, name: e.target.value})}
@@ -431,7 +431,7 @@ const SellerDashboard = () => {
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                  <label style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--text-dim)' }}>Daam (₹)</label>
+                  <label style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--text-dim)' }}>Price (₹)</label>
                   <input 
                     type="number" step="0.01" required value={formData.price || ''} 
                     onChange={e => setFormData({...formData, price: parseFloat(e.target.value)})}
@@ -453,7 +453,7 @@ const SellerDashboard = () => {
                 </div>
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                <label style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--text-dim)' }}>Product ki Jaankari</label>
+                <label style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--text-dim)' }}>Product Description</label>
                 <textarea 
                   required value={formData.description || ''} 
                   onChange={e => setFormData({...formData, description: e.target.value})}
@@ -463,8 +463,8 @@ const SellerDashboard = () => {
                 />
               </div>
               <div style={{ display: 'flex', gap: '1.5rem', marginTop: '1rem' }}>
-                 <button type="button" onClick={() => { setEditingProduct(null); setIsAdding(false); }} style={{ flex: 1, padding: '1.25rem', background: 'transparent', color: 'white', border: '1px solid var(--border-color)', borderRadius: '16px', fontWeight: 700 }}>Wapas Jao</button>
-                 <button type="submit" className="btn-primary" style={{ flex: 1 }}>Save Karo</button>
+                 <button type="button" onClick={() => { setEditingProduct(null); setIsAdding(false); }} style={{ flex: 1, padding: '1.25rem', background: 'transparent', color: 'white', border: '1px solid var(--border-color)', borderRadius: '16px', fontWeight: 700 }}>Cancel</button>
+                 <button type="submit" className="btn-primary" style={{ flex: 1 }}>Save Product</button>
               </div>
             </form>
           </motion.div>
@@ -475,8 +475,8 @@ const SellerDashboard = () => {
         <div className="glass-card" style={{ padding: '2.5rem', position: 'sticky', top: '120px', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
           {[
             { icon: <LayoutDashboard size={22} />, label: 'Dashboard', active: true },
-            { icon: <Package size={22} />, label: 'Mera Saman' },
-            { icon: <TrendingUp size={22} />, label: 'Kamai' }
+            { icon: <Package size={22} />, label: 'My Products' },
+            { icon: <TrendingUp size={22} />, label: 'Earnings' }
           ].map((item, i) => (
             <motion.div 
               key={i}
@@ -500,8 +500,8 @@ const SellerDashboard = () => {
            style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '4rem' }}
         >
           <div>
-            <h2 style={{ fontSize: '3.5rem', marginBottom: '0.5rem' }}>Seller Panel</h2>
-            <p style={{ color: 'var(--text-dim)', fontSize: '1.2rem' }}>Namaste, <span style={{ color: 'white', fontWeight: 800 }}>{user.name}</span>! Aapka business badh raha hai.</p>
+            <h2 style={{ fontSize: '3.5rem', marginBottom: '0.5rem' }}>Seller Dashboard</h2>
+            <p style={{ color: 'var(--text-dim)', fontSize: '1.2rem' }}>Hello, <span style={{ color: 'white', fontWeight: 800 }}>{user.name}</span>! Your business is growing.</p>
           </div>
           <motion.button 
             whileHover={{ scale: 1.05 }}
@@ -510,7 +510,7 @@ const SellerDashboard = () => {
             className="btn-primary" 
             style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '1.25rem 2.5rem' }}
           >
-            <PlusCircle size={22} /> Naya Product Daalo
+            <PlusCircle size={22} /> Add New Product
           </motion.button>
         </motion.div>
 
@@ -549,7 +549,7 @@ const SellerDashboard = () => {
                 <tr>
                    <td colSpan={5} style={{ padding: '10rem 0', textAlign: 'center', color: 'var(--text-dim)' }}>
                      <Package size={80} style={{ opacity: 0.05, marginBottom: '2rem' }} />
-                     <p style={{ fontSize: '1.1rem' }}>Abhi koi product nahi hai. Pehla product daalo!</p>
+                     <p style={{ fontSize: '1.1rem' }}>No products yet. Add your first product!</p>
                    </td>
                 </tr>
               )}
@@ -607,7 +607,7 @@ const ProductDetail = () => {
         onClick={() => navigate(-1)} 
         style={{ background: 'transparent', color: 'var(--text-dim)', marginBottom: '3rem', display: 'flex', alignItems: 'center', gap: '0.75rem', fontSize: '1rem', fontWeight: 600 }}
       >
-        <TrendingUp size={20} style={{ transform: 'rotate(-90deg)' }} /> Back to Collection
+        <TrendingUp size={20} style={{ transform: 'rotate(-90deg)' }} /> Back
       </motion.button>
       
       <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '6rem' }}>
@@ -650,7 +650,7 @@ const ProductDetail = () => {
                onClick={() => addToCart(product.id)} 
                style={{ flex: 1, padding: '1.5rem', background: 'rgba(255,255,255,0.05)', color: 'white', border: '1px solid var(--border-color)', borderRadius: '16px', fontWeight: 700, fontSize: '1.1rem' }}
              >
-               Cart mein Daalo
+               Add to Cart
              </motion.button>
              <motion.button 
                whileHover={{ scale: 1.02 }}
@@ -659,7 +659,7 @@ const ProductDetail = () => {
                className="btn-primary" 
                style={{ flex: 1, padding: '1.5rem', fontSize: '1.1rem' }}
              >
-               Abhi Kharido
+               Buy Now
              </motion.button>
           </div>
 
@@ -699,28 +699,28 @@ const ProductDetail = () => {
               </motion.div>
             )) : (
               <div className="glass-card" style={{ textAlign: 'center', padding: '5rem', color: 'var(--text-dim)' }}>
-                 Abhi koi review nahi hai. Pehle aap likho!
+                 No reviews yet. Be the first to review!
               </div>
             )}
           </div>
         </div>
 
         <div>
-          <h3 style={{ fontSize: '2.5rem', marginBottom: '3rem' }}>Review Likho</h3>
+          <h3 style={{ fontSize: '2.5rem', marginBottom: '3rem' }}>Write a Review</h3>
           <form onSubmit={submitReview} className="glass-card" style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem', padding: '3rem' }}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              <label style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--text-dim)', marginLeft: '0.5rem' }}>Rating do</label>
+              <label style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--text-dim)', marginLeft: '0.5rem' }}>Your Rating</label>
               <select 
                 value={newRating} 
                 onChange={(e) => setNewRating(Number(e.target.value))}
                 className="input-premium"
                 style={{ appearance: 'none' }}
               >
-                {[5,4,3,2,1].map(n => <option key={n} value={n}>{n} Star{n > 1 ? 's' : ''} - {n === 5 ? 'Bahut Badhiya' : n === 4 ? 'Accha' : n === 3 ? 'Theek Hai' : n === 2 ? 'Khaas Nahi' : 'Bekar'}</option>)}
+                {[5,4,3,2,1].map(n => <option key={n} value={n}>{n} Star{n > 1 ? 's' : ''} - {n === 5 ? 'Excellent' : n === 4 ? 'Good' : n === 3 ? 'Average' : n === 2 ? 'Poor' : 'Very Bad'}</option>)}
               </select>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              <label style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--text-dim)', marginLeft: '0.5rem' }}>Aapka Review</label>
+              <label style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--text-dim)', marginLeft: '0.5rem' }}>Your Review</label>
               <textarea 
                 value={newComment}
                 onChange={(e) => setNewComment(e.target.value)}
@@ -728,10 +728,10 @@ const ProductDetail = () => {
                 rows={6}
                 className="input-premium"
                 style={{ resize: 'none' }}
-                placeholder="Apna anubhav batao..."
+                placeholder="Share your experience..."
               />
             </div>
-            <button type="submit" className="btn-primary" style={{ padding: '1.25rem' }}>Review Bhejo</button>
+            <button type="submit" className="btn-primary" style={{ padding: '1.25rem' }}>Submit Review</button>
           </form>
         </div>
       </div>
@@ -756,7 +756,7 @@ const CartView = () => {
         animate={{ opacity: 1, y: 0 }}
         style={{ fontSize: '4rem', marginBottom: '4rem', letterSpacing: '-3px' }}
       >
-        Aapka Cart
+        Your Cart
       </motion.h2>
       
       {cartItems.length > 0 ? (
@@ -785,7 +785,7 @@ const CartView = () => {
                     onClick={() => removeFromCart(item.id)} 
                     style={{ background: 'transparent', color: 'var(--text-muted)', fontSize: '0.9rem', marginTop: '1.5rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1px' }}
                   >
-                    HATAO
+                    REMOVE
                   </motion.button>
                 </div>
                 
@@ -809,7 +809,7 @@ const CartView = () => {
               <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', padding: '1.5rem', background: 'rgba(255,255,255,0.03)', borderRadius: '20px', marginBottom: '3rem', border: '1px solid var(--border-color)' }}>
                 <MapPin size={24} color="var(--primary)" />
                 <div>
-                   <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 800, letterSpacing: '1px' }}>Delivery Kahan</div>
+                   <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 800, letterSpacing: '1px' }}>Deliver To</div>
                    <div style={{ fontWeight: 800, fontSize: '1.1rem' }}>{location}</div>
                 </div>
               </div>
@@ -821,27 +821,27 @@ const CartView = () => {
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '1.1rem' }}>
                   <span style={{ color: 'var(--text-dim)' }}>Delivery Charge</span>
-                  <span style={{ color: '#4ade80', fontWeight: 800 }}>MUFT (FREE)</span>
+                  <span style={{ color: '#4ade80', fontWeight: 800 }}>FREE</span>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '1.1rem' }}>
                   <span style={{ color: 'var(--text-dim)' }}>Tax</span>
-                  <span style={{ color: 'var(--text-muted)' }}>Shamil hai</span>
+                  <span style={{ color: 'var(--text-muted)' }}>Included</span>
                 </div>
               </div>
               
               <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '2rem 0' }} />
               
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4rem' }}>
-                <span style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--text-dim)' }}>Kul Daam</span>
+                <span style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--text-dim)' }}>Total Amount</span>
                 <span style={{ fontSize: '2.8rem', fontWeight: 950, letterSpacing: '-2px' }}>₹{total.toFixed(2)}</span>
               </div>
               
               <button 
                 className="btn-primary" 
                 style={{ width: '100%', padding: '1.5rem', fontSize: '1.2rem' }}
-                onClick={() => alert('Order place ho gaya! Jaldi aayega.')}
+                onClick={() => alert('Order placed successfully! It will arrive soon.')}
               >
-                ORDER KARO
+                PLACE ORDER
               </button>
               
               <div style={{ marginTop: '2rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.75rem', color: 'var(--text-muted)', fontSize: '0.85rem' }}>
@@ -859,8 +859,8 @@ const CartView = () => {
           style={{ textAlign: 'center', padding: '10rem 2rem' }}
         >
            <ShoppingBag size={100} style={{ color: 'rgba(255,255,255,0.05)', marginBottom: '3rem' }} />
-           <p style={{ color: 'var(--text-dim)', fontSize: '1.5rem', marginBottom: '4rem' }}>Aapka cart khali hai! Kuch toh daalo.</p>
-           <Link to="/" className="btn-primary" style={{ textDecoration: 'none', padding: '1.25rem 4rem', display: 'inline-block', fontSize: '1.1rem' }}>Shopping Shuru Karo</Link>
+           <p style={{ color: 'var(--text-dim)', fontSize: '1.5rem', marginBottom: '4rem' }}>Your cart is empty. Start adding items!</p>
+           <Link to="/" className="btn-primary" style={{ textDecoration: 'none', padding: '1.25rem 4rem', display: 'inline-block', fontSize: '1.1rem' }}>Start Shopping</Link>
         </motion.div>
       )}
     </div>
@@ -931,7 +931,7 @@ const App = () => {
             </div>
             
             <div style={{ display: 'flex', gap: '3rem', alignItems: 'center' }}>
-              <Link to="/seller" style={{ color: 'white', textDecoration: 'none', fontSize: '1rem', fontWeight: 600 }}>Seller Bano</Link>
+              <Link to="/seller" style={{ color: 'white', textDecoration: 'none', fontSize: '1rem', fontWeight: 600 }}>Sell on Vendora</Link>
               <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
                 <Link to="/cart" style={{ color: 'white', position: 'relative' }}>
                   <ShoppingBag size={26} />
@@ -986,12 +986,12 @@ const App = () => {
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '4rem', marginBottom: '4rem' }}>
                <div>
                   <div style={{ fontSize: '1.5rem', fontWeight: 900, marginBottom: '1.5rem' }}>VENDORA 🛒</div>
-                  <p style={{ color: 'var(--text-dim)', lineHeight: 1.6 }}>India ka apna online bazaar — sellers aur buyers ek hi jagah.</p>
+                  <p style={{ color: 'var(--text-dim)', lineHeight: 1.6 }}>India's own online marketplace connecting sellers and buyers.</p>
                </div>
                <div>
                   <h4 style={{ marginBottom: '1.5rem' }}>Marketplace</h4>
                   <ul style={{ listStyle: 'none', color: 'var(--text-dim)', display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
-                     <li>Sabhi Products</li>
+                     <li>All Products</li>
                      <li>Popular Sellers</li>
                      <li>Seller Program</li>
                   </ul>
@@ -1000,7 +1000,7 @@ const App = () => {
                   <h4 style={{ marginBottom: '1.5rem' }}>Help</h4>
                   <ul style={{ listStyle: 'none', color: 'var(--text-dim)', display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
                      <li>Help Center</li>
-                     <li>Humse Baat Karo</li>
+                     <li>Contact Us</li>
                   </ul>
                </div>
             </div>
