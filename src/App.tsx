@@ -1,15 +1,15 @@
 import { createContext, useContext, useState, useMemo } from 'react';
 import { HashRouter, Routes, Route, Link, useParams, useNavigate } from 'react-router-dom';
-import { 
-  ShoppingBag, 
-  Store, 
-  User, 
-  Search, 
-  Star, 
-  TrendingUp, 
-  LayoutDashboard, 
-  PlusCircle, 
-  Package, 
+import {
+  ShoppingBag,
+  Store,
+  User,
+  Search,
+  Star,
+  TrendingUp,
+  LayoutDashboard,
+  PlusCircle,
+  Package,
   LogOut,
   MapPin,
   ChevronDown
@@ -50,7 +50,7 @@ interface AppContextType {
   products: Product[];
   user: UserProfile | null;
   location: string;
-  cart: {id: string, qty: number}[];
+  cart: { id: string, qty: number }[];
   addToCart: (pid: string) => void;
   removeFromCart: (pid: string) => void;
   addReview: (pid: string, review: Review) => void;
@@ -129,19 +129,19 @@ const Home = () => {
     <div className="container" style={{ padding: '4rem 0' }}>
       <header style={{ marginBottom: '5rem', textAlign: 'center', position: 'relative' }}>
         <motion.div
-           initial={{ opacity: 0, y: 30 }}
-           animate={{ opacity: 1, y: 0 }}
-           transition={{ duration: 0.8, ease: "easeOut" }}
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <h1 className="gradient-text" style={{ fontSize: '4.5rem', marginBottom: '1.5rem', lineHeight: 1 }}>
-            The Future of <br /> Digital Commerce
+            India's Best <br /> Online Marketplace
           </h1>
           <p style={{ color: 'var(--text-dim)', fontSize: '1.4rem', maxWidth: '700px', margin: '0 auto 3rem' }}>
-            Discover unique products from verified sellers around the globe. Premium quality, secure transactions.
+            Shop from trusted sellers all over India. Best prices, easy returns, safe payment.
           </p>
         </motion.div>
-        
-        <motion.div 
+
+        <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.3, duration: 0.6 }}
@@ -149,10 +149,10 @@ const Home = () => {
         >
           <div className="glass-card" style={{ display: 'flex', alignItems: 'center', padding: '0.5rem 1rem', width: '100%', maxWidth: '700px', borderRadius: '40px', background: 'rgba(255,255,255,0.05)' }}>
             <Search size={24} color="var(--primary)" style={{ marginLeft: '1rem' }} />
-            <input 
-              type="text" 
-              placeholder="Search premium products..." 
-              style={{ background: 'transparent', border: 'none', color: 'white', padding: '1rem', width: '100%', outline: 'none', fontSize: '1.1rem' }} 
+            <input
+              type="text"
+              placeholder="Search for products, brands and more..."
+              style={{ background: 'transparent', border: 'none', color: 'white', padding: '1rem', width: '100%', outline: 'none', fontSize: '1.1rem' }}
             />
             <button className="btn-primary" style={{ padding: '0.8rem 2rem', borderRadius: '30px' }}>Search</button>
           </div>
@@ -163,7 +163,7 @@ const Home = () => {
         <div className="orbit" style={{ bottom: '-100px', right: '-100px', background: 'radial-gradient(circle, var(--secondary) 0%, transparent 70%)', opacity: 0.2 }} />
       </header>
 
-      <motion.div 
+      <motion.div
         className="product-grid"
         initial="hidden"
         whileInView="visible"
@@ -174,31 +174,31 @@ const Home = () => {
         }}
       >
         {products.map(p => (
-          <motion.div 
-            key={p.id} 
+          <motion.div
+            key={p.id}
             variants={{
               hidden: { opacity: 0, y: 20 },
               visible: { opacity: 1, y: 0 }
             }}
             whileHover={{ y: -12, scale: 1.02 }}
-            className="glass-card" 
+            className="glass-card"
             style={{ padding: 0, position: 'relative' }}
           >
             <div style={{ position: 'relative', height: '240px', overflow: 'hidden' }}>
-              <motion.div 
+              <motion.div
                 whileHover={{ scale: 1.1 }}
                 transition={{ duration: 0.6 }}
-                style={{ height: '100%', width: '100%', background: `url(${p.image}) center/cover` }} 
+                style={{ height: '100%', width: '100%', background: `url(${p.image}) center/cover` }}
               />
               <div style={{ position: 'absolute', top: '1rem', right: '1rem', background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(10px)', color: 'white', padding: '0.4rem 1rem', borderRadius: '20px', fontSize: '0.9rem', fontWeight: 700 }}>
                 ${p.price}
               </div>
             </div>
-            
+
             <div style={{ padding: '2rem' }}>
               <div style={{ fontSize: '0.8rem', color: 'var(--accent)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '0.5rem' }}>{p.category}</div>
               <h3 style={{ fontSize: '1.4rem', marginBottom: '0.75rem' }}>{p.name}</h3>
-              
+
               <div style={{ display: 'flex', alignItems: 'center', gap: '4px', marginBottom: '1.5rem' }}>
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} size={14} fill={i < Math.floor(p.rating) ? "var(--primary)" : "transparent"} stroke="var(--primary)" />
@@ -210,9 +210,9 @@ const Home = () => {
                 <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: 'linear-gradient(135deg, var(--primary), var(--accent))' }} />
                 <span style={{ fontSize: '0.9rem', color: 'var(--text-dim)' }}>Seller: <b style={{ color: 'white' }}>{p.sellerName}</b></span>
               </div>
-              
+
               <Link to={`/product/${p.id}`} className="btn-primary" style={{ display: 'block', textAlign: 'center', textDecoration: 'none', borderRadius: '14px', padding: '1rem' }}>
-                View Masterpiece
+                View Details
               </Link>
             </div>
           </motion.div>
@@ -228,7 +228,7 @@ const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [userLoc, setUserLoc] = useState('New York, USA');
-  
+
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     setUser({ id: 'u1', name: name || email.split('@')[0], role: 'buyer', location: userLoc });
@@ -238,47 +238,47 @@ const LoginPage = () => {
 
   return (
     <div className="container" style={{ display: 'flex', justifyContent: 'center', padding: '10rem 0', position: 'relative' }}>
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 40, scale: 0.95 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="glass-card" 
+        className="glass-card"
         style={{ width: '100%', maxWidth: '480px', padding: '3.5rem' }}
       >
         <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-          <h2 style={{ fontSize: '2.5rem', marginBottom: '0.75rem' }}>Welcome Back</h2>
-          <p style={{ color: 'var(--text-dim)' }}>Access your premium marketplace experience.</p>
+          <h2 style={{ fontSize: '2.5rem', marginBottom: '0.75rem' }}>Welcome Back!</h2>
+          <p style={{ color: 'var(--text-dim)' }}>Login to your account and continue shopping.</p>
         </div>
-        
+
         <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
             <label style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--text-dim)', marginLeft: '0.25rem' }}>Full Name</label>
-            <input 
+            <input
               type="text" required value={name} onChange={(e) => setName(e.target.value)}
               placeholder="Enter your name" className="input-premium"
             />
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
             <label style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--text-dim)', marginLeft: '0.25rem' }}>Email Address</label>
-            <input 
+            <input
               type="email" required value={email} onChange={(e) => setEmail(e.target.value)}
               placeholder="email@example.com" className="input-premium"
             />
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
             <label style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--text-dim)', marginLeft: '0.25rem' }}>Location</label>
-            <input 
+            <input
               type="text" required value={userLoc} onChange={(e) => setUserLoc(e.target.value)}
               placeholder="City, Country" className="input-premium"
             />
           </div>
           <button type="submit" className="btn-primary" style={{ marginTop: '1rem', padding: '1.25rem' }}>
-            Enter Marketplace
+            Login
           </button>
         </form>
-        
+
         <div style={{ marginTop: '2.5rem', textAlign: 'center', color: 'var(--text-dim)', fontSize: '0.95rem' }}>
-          New to Vendora? <Link to="/signup" style={{ color: 'var(--primary)', textDecoration: 'none', fontWeight: 700 }}>Reserve an Account</Link>
+          New to Vendora? <Link to="/signup" style={{ color: 'var(--primary)', textDecoration: 'none', fontWeight: 700 }}>Create Account</Link>
         </div>
       </motion.div>
       <div className="orbit" style={{ top: '20%', left: '10%', width: '300px', height: '300px', opacity: 0.2 }} />
@@ -292,7 +292,7 @@ const SignupPage = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [userLoc, setUserLoc] = useState('New York, USA');
-  
+
   const handleSignup = (e: React.FormEvent) => {
     e.preventDefault();
     setUser({ id: 'sNew', name: name || 'New User', role: 'seller', location: userLoc });
@@ -302,46 +302,46 @@ const SignupPage = () => {
 
   return (
     <div className="container" style={{ display: 'flex', justifyContent: 'center', padding: '10rem 0', position: 'relative' }}>
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="glass-card" 
+        className="glass-card"
         style={{ width: '100%', maxWidth: '480px', padding: '3.5rem' }}
       >
         <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-          <h2 style={{ fontSize: '2.5rem', marginBottom: '0.75rem' }}>Join the Elite</h2>
-          <p style={{ color: 'var(--text-dim)' }}>Start your journey as a verified seller.</p>
+          <h2 style={{ fontSize: '2.5rem', marginBottom: '0.75rem' }}>Create Account</h2>
+          <p style={{ color: 'var(--text-dim)' }}>Sign up and start selling your products today.</p>
         </div>
-        
+
         <form onSubmit={handleSignup} style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
             <label style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--text-dim)' }}>Full Name</label>
-            <input 
+            <input
               type="text" required value={name} onChange={(e) => setName(e.target.value)}
               placeholder="John Doe" className="input-premium"
             />
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
             <label style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--text-dim)' }}>Email Address</label>
-            <input 
+            <input
               type="email" required value={email} onChange={(e) => setEmail(e.target.value)}
               placeholder="email@example.com" className="input-premium"
             />
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
             <label style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--text-dim)' }}>Base Location</label>
-            <input 
+            <input
               type="text" required value={userLoc} onChange={(e) => setUserLoc(e.target.value)}
               placeholder="City, Country" className="input-premium"
             />
           </div>
           <button type="submit" className="btn-primary" style={{ marginTop: '1rem', padding: '1.25rem' }}>
-            Create Seller Identity
+            Sign Up Free
           </button>
         </form>
         <p style={{ marginTop: '2.5rem', textAlign: 'center', color: 'var(--text-dim)', fontSize: '0.95rem' }}>
-          Already a member? <Link to="/login" style={{ color: 'var(--primary)', textDecoration: 'none', fontWeight: 700 }}>Initiate Login</Link>
+          Already have an account? <Link to="/login" style={{ color: 'var(--primary)', textDecoration: 'none', fontWeight: 700 }}>Login here</Link>
         </p>
       </motion.div>
       <div className="orbit" style={{ bottom: '10%', right: '5%', width: '400px', height: '400px', opacity: 0.1, background: 'radial-gradient(circle, var(--accent) 0%, transparent 70%)' }} />
@@ -357,17 +357,17 @@ const SellerDashboard = () => {
   if (user?.role !== 'seller') {
     return (
       <div className="container" style={{ padding: '10rem 0', textAlign: 'center' }}>
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="glass-card" 
+          className="glass-card"
           style={{ maxWidth: '600px', margin: '0 auto', padding: '5rem' }}
         >
           <Store size={64} style={{ color: 'var(--primary)', marginBottom: '2.5rem' }} />
-          <h2 style={{ fontSize: '3rem', marginBottom: '1.5rem' }}>Start Your Legacy</h2>
-          <p style={{ color: 'var(--text-dim)', fontSize: '1.2rem', marginBottom: '3.5rem' }}>Establish your premium presence in the global marketplace.</p>
+          <h2 style={{ fontSize: '3rem', marginBottom: '1.5rem' }}>Start Selling Today</h2>
+          <p style={{ color: 'var(--text-dim)', fontSize: '1.2rem', marginBottom: '3.5rem' }}>Set up your seller account and reach customers all over India.</p>
           <button onClick={() => setUser({ id: 's1', name: 'Nebula Tech', role: 'seller', location: location })} className="btn-primary" style={{ padding: '1.25rem 3rem' }}>
-            Initialize Seller Profile
+            Start Selling
           </button>
         </motion.div>
       </div>
@@ -413,36 +413,36 @@ const SellerDashboard = () => {
       {/* Modal - Could be moved to a separate component */}
       {(editingProduct || isAdding) && (
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(2, 6, 23, 0.95)', zIndex: 2000, display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '2rem', backdropFilter: 'blur(20px)' }}>
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="glass-card" 
+            className="glass-card"
             style={{ width: '100%', maxWidth: '600px', padding: '4rem', background: 'var(--bg-main)' }}
           >
-            <h3 style={{ fontSize: '2.5rem', marginBottom: '3rem' }}>{editingProduct ? 'Update Creation' : 'New Masterpiece'}</h3>
+            <h3 style={{ fontSize: '2.5rem', marginBottom: '3rem' }}>{editingProduct ? 'Edit Product' : 'Add New Product'}</h3>
             <form onSubmit={handleSave} style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                 <label style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--text-dim)' }}>Product Name</label>
-                <input 
-                  type="text" required value={formData.name || ''} 
-                  onChange={e => setFormData({...formData, name: e.target.value})}
+                <input
+                  type="text" required value={formData.name || ''}
+                  onChange={e => setFormData({ ...formData, name: e.target.value })}
                   className="input-premium"
                 />
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                  <label style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--text-dim)' }}>Value ($)</label>
-                  <input 
-                    type="number" step="0.01" required value={formData.price || ''} 
-                    onChange={e => setFormData({...formData, price: parseFloat(e.target.value)})}
+                  <label style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--text-dim)' }}>Price ($)</label>
+                  <input
+                    type="number" step="0.01" required value={formData.price || ''}
+                    onChange={e => setFormData({ ...formData, price: parseFloat(e.target.value) })}
                     className="input-premium"
                   />
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                  <label style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--text-dim)' }}>Collection</label>
-                  <select 
-                    value={formData.category || ''} 
-                    onChange={e => setFormData({...formData, category: e.target.value})}
+                  <label style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--text-dim)' }}>Category</label>
+                  <select
+                    value={formData.category || ''}
+                    onChange={e => setFormData({ ...formData, category: e.target.value })}
                     className="input-premium"
                   >
                     <option value="Electronics">Electronics</option>
@@ -453,18 +453,18 @@ const SellerDashboard = () => {
                 </div>
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                <label style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--text-dim)' }}>Visionary Description</label>
-                <textarea 
-                  required value={formData.description || ''} 
-                  onChange={e => setFormData({...formData, description: e.target.value})}
+                <label style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--text-dim)' }}>Product Description</label>
+                <textarea
+                  required value={formData.description || ''}
+                  onChange={e => setFormData({ ...formData, description: e.target.value })}
                   className="input-premium"
                   rows={4}
                   style={{ resize: 'none' }}
                 />
               </div>
               <div style={{ display: 'flex', gap: '1.5rem', marginTop: '1rem' }}>
-                 <button type="button" onClick={() => { setEditingProduct(null); setIsAdding(false); }} style={{ flex: 1, padding: '1.25rem', background: 'transparent', color: 'white', border: '1px solid var(--border-color)', borderRadius: '16px', fontWeight: 700 }}>Retract</button>
-                 <button type="submit" className="btn-primary" style={{ flex: 1 }}>Confirm Creation</button>
+                <button type="button" onClick={() => { setEditingProduct(null); setIsAdding(false); }} style={{ flex: 1, padding: '1.25rem', background: 'transparent', color: 'white', border: '1px solid var(--border-color)', borderRadius: '16px', fontWeight: 700 }}>Cancel</button>
+                <button type="submit" className="btn-primary" style={{ flex: 1 }}>Save Product</button>
               </div>
             </form>
           </motion.div>
@@ -474,11 +474,11 @@ const SellerDashboard = () => {
       <aside>
         <div className="glass-card" style={{ padding: '2.5rem', position: 'sticky', top: '120px', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
           {[
-            { icon: <LayoutDashboard size={22} />, label: 'Analytics', active: true },
-            { icon: <Package size={22} />, label: 'Archive' },
-            { icon: <TrendingUp size={22} />, label: 'Revenue' }
+            { icon: <LayoutDashboard size={22} />, label: 'Overview', active: true },
+            { icon: <Package size={22} />, label: 'My Products' },
+            { icon: <TrendingUp size={22} />, label: 'Earnings' }
           ].map((item, i) => (
-            <motion.div 
+            <motion.div
               key={i}
               whileHover={{ x: 10 }}
               style={{ display: 'flex', alignItems: 'center', gap: '1rem', color: item.active ? 'var(--primary)' : 'var(--text-dim)', cursor: 'pointer', fontWeight: item.active ? 800 : 600, fontSize: '1.1rem' }}
@@ -488,29 +488,29 @@ const SellerDashboard = () => {
           ))}
           <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '0.5rem 0' }} />
           <div onClick={() => setUser(null)} style={{ display: 'flex', alignItems: 'center', gap: '1rem', color: '#ff4b4b', cursor: 'pointer', fontWeight: 800, fontSize: '1.1rem' }}>
-            <LogOut size={22} /> <span>Terminate Session</span>
+            <LogOut size={22} /> <span>Logout</span>
           </div>
         </div>
       </aside>
 
       <main>
-        <motion.div 
-           initial={{ opacity: 0, y: 20 }}
-           animate={{ opacity: 1, y: 0 }}
-           style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '4rem' }}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '4rem' }}
         >
           <div>
-            <h2 style={{ fontSize: '3.5rem', marginBottom: '0.5rem' }}>Guardian Console</h2>
-            <p style={{ color: 'var(--text-dim)', fontSize: '1.2rem' }}>Welcome, <span style={{ color: 'white', fontWeight: 800 }}>{user.name}</span>. Your empire is growing.</p>
+            <h2 style={{ fontSize: '3.5rem', marginBottom: '0.5rem' }}>My Dashboard</h2>
+            <p style={{ color: 'var(--text-dim)', fontSize: '1.2rem' }}>Welcome back, <span style={{ color: 'white', fontWeight: 800 }}>{user.name}</span>! Manage your products here.</p>
           </div>
-          <motion.button 
+          <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            onClick={() => openForm()} 
-            className="btn-primary" 
+            onClick={() => openForm()}
+            className="btn-primary"
             style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '1.25rem 2.5rem' }}
           >
-            <PlusCircle size={22} /> New Masterpiece
+            <PlusCircle size={22} /> Add Product
           </motion.button>
         </motion.div>
 
@@ -518,10 +518,10 @@ const SellerDashboard = () => {
           <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
             <thead>
               <tr style={{ background: 'rgba(255,255,255,0.02)', borderBottom: '1px solid var(--border-color)' }}>
-                <th style={{ padding: '2rem' }}>Product Entity</th>
-                <th>Valuation</th>
-                <th>Market Status</th>
-                <th>Net Revenue</th>
+                <th style={{ padding: '2rem' }}>Product</th>
+                <th>Price</th>
+                <th>Status</th>
+                <th>Your Earnings</th>
                 <th style={{ paddingRight: '2rem' }}>Actions</th>
               </tr>
             </thead>
@@ -529,11 +529,11 @@ const SellerDashboard = () => {
               {sellerProducts.length > 0 ? sellerProducts.map(p => (
                 <tr key={p.id} style={{ borderBottom: '1px solid var(--border-color)' }}>
                   <td style={{ padding: '2rem', display: 'flex', alignItems: 'center', gap: '2rem' }}>
-                     <div style={{ width: '60px', height: '60px', background: `url(${p.image}) center/cover`, borderRadius: '14px', border: '1px solid var(--border-color)' }} />
-                     <div>
-                        <div style={{ fontWeight: 800, fontSize: '1.1rem' }}>{p.name}</div>
-                        <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>UUID: {p.id}</div>
-                     </div>
+                    <div style={{ width: '60px', height: '60px', background: `url(${p.image}) center/cover`, borderRadius: '14px', border: '1px solid var(--border-color)' }} />
+                    <div>
+                      <div style={{ fontWeight: 800, fontSize: '1.1rem' }}>{p.name}</div>
+                      <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>UUID: {p.id}</div>
+                    </div>
                   </td>
                   <td style={{ fontWeight: 800, fontSize: '1.1rem' }}>${p.price.toFixed(2)}</td>
                   <td><span style={{ color: '#4ade80', fontSize: '0.8rem', background: 'rgba(74,222,128,0.1)', padding: '6px 16px', borderRadius: '30px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px' }}>Active</span></td>
@@ -547,10 +547,10 @@ const SellerDashboard = () => {
                 </tr>
               )) : (
                 <tr>
-                   <td colSpan={5} style={{ padding: '10rem 0', textAlign: 'center', color: 'var(--text-dim)' }}>
-                     <Package size={80} style={{ opacity: 0.05, marginBottom: '2rem' }} />
-                     <p style={{ fontSize: '1.1rem' }}>Your archive is currently empty of masterpieces.</p>
-                   </td>
+                  <td colSpan={5} style={{ padding: '10rem 0', textAlign: 'center', color: 'var(--text-dim)' }}>
+                    <Package size={80} style={{ opacity: 0.05, marginBottom: '2rem' }} />
+                    <p style={{ fontSize: '1.1rem' }}>You have not added any products yet.</p>
+                  </td>
                 </tr>
               )}
             </tbody>
@@ -571,7 +571,7 @@ const ProductDetail = () => {
   const navigate = useNavigate();
   const [newComment, setNewComment] = useState('');
   const [newRating, setNewRating] = useState(5);
-  
+
   const product = products.find(p => p.id === id);
 
   if (!product) return <div className="container" style={{ padding: '10rem 2rem', textAlign: 'center' }}><h2>Product not found</h2><Link to="/" style={{ color: 'var(--primary)' }}>Back to Home</Link></div>;
@@ -601,66 +601,66 @@ const ProductDetail = () => {
 
   return (
     <div className="container" style={{ padding: '6rem 0' }}>
-      <motion.button 
+      <motion.button
         initial={{ opacity: 0, x: -10 }}
         animate={{ opacity: 1, x: 0 }}
-        onClick={() => navigate(-1)} 
+        onClick={() => navigate(-1)}
         style={{ background: 'transparent', color: 'var(--text-dim)', marginBottom: '3rem', display: 'flex', alignItems: 'center', gap: '0.75rem', fontSize: '1rem', fontWeight: 600 }}
       >
         <TrendingUp size={20} style={{ transform: 'rotate(-90deg)' }} /> Back to Collection
       </motion.button>
-      
+
       <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '6rem' }}>
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8 }}
-          className="glass-card" 
+          className="glass-card"
           style={{ padding: 0, height: '700px', position: 'relative' }}
         >
-           <img src={product.image} style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt={product.name} />
-           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, transparent 60%, rgba(2, 6, 23, 0.8))' }} />
+          <img src={product.image} style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt={product.name} />
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, transparent 60%, rgba(2, 6, 23, 0.8))' }} />
         </motion.div>
-        
+
         <motion.div
-           initial={{ opacity: 0, x: 30 }}
-           animate={{ opacity: 1, x: 0 }}
-           transition={{ delay: 0.2, duration: 0.8 }}
+          initial={{ opacity: 0, x: 30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.2, duration: 0.8 }}
         >
           <div style={{ color: 'var(--accent)', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '1.5rem', fontSize: '0.9rem' }}>{product.category}</div>
-          <h1 style={{ fontSize: '4.5rem', lineHeight: 1, marginBottom: '2rem' }} className="gradient-text">{product.name}</h1>
-          
+          <h1 style={{ fontSize: '3.5rem', lineHeight: 1, marginBottom: '2rem' }} className="gradient-text">{product.name}</h1>
+
           <div style={{ display: 'flex', alignItems: 'center', gap: '2rem', marginBottom: '2.5rem' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-               <Star size={24} fill="var(--primary)" stroke="var(--primary)" />
-               <span style={{ fontWeight: 800, fontSize: '1.5rem' }}>{product.rating}</span>
+              <Star size={24} fill="var(--primary)" stroke="var(--primary)" />
+              <span style={{ fontWeight: 800, fontSize: '1.5rem' }}>{product.rating}</span>
             </div>
             <div style={{ width: '1px', height: '30px', background: 'var(--border-color)' }} />
-            <div style={{ color: 'var(--text-dim)', fontSize: '1.1rem' }}>{product.reviews.length} authentic reviews</div>
+            <div style={{ color: 'var(--text-dim)', fontSize: '1.1rem' }}>{product.reviews.length} customer reviews</div>
           </div>
 
           <div style={{ fontSize: '3.5rem', fontWeight: 900, marginBottom: '3rem', letterSpacing: '-2px' }}>${product.price.toFixed(2)}</div>
-          
+
           <p style={{ color: 'var(--text-dim)', fontSize: '1.25rem', marginBottom: '4rem', lineHeight: 1.8 }}>{product.description}</p>
-          
+
           <div style={{ display: 'flex', gap: '1.5rem', marginBottom: '4rem' }}>
-             <motion.button 
-               whileHover={{ scale: 1.02 }}
-               whileTap={{ scale: 0.98 }}
-               onClick={() => addToCart(product.id)} 
-               style={{ flex: 1, padding: '1.5rem', background: 'rgba(255,255,255,0.05)', color: 'white', border: '1px solid var(--border-color)', borderRadius: '16px', fontWeight: 700, fontSize: '1.1rem' }}
-             >
-               Add to Archive
-             </motion.button>
-             <motion.button 
-               whileHover={{ scale: 1.02 }}
-               whileTap={{ scale: 0.98 }}
-               onClick={handleBuyNow} 
-               className="btn-primary" 
-               style={{ flex: 1, padding: '1.5rem', fontSize: '1.1rem' }}
-             >
-               Acquire Now
-             </motion.button>
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => addToCart(product.id)}
+              style={{ flex: 1, padding: '1.5rem', background: 'rgba(255,255,255,0.05)', color: 'white', border: '1px solid var(--border-color)', borderRadius: '16px', fontWeight: 700, fontSize: '1.1rem' }}
+            >
+              Add to Cart
+            </motion.button>
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={handleBuyNow}
+              className="btn-primary"
+              style={{ flex: 1, padding: '1.5rem', fontSize: '1.1rem' }}
+            >
+              Buy Now
+            </motion.button>
           </div>
 
           <div className="glass-card" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1.5rem 2rem', background: 'rgba(99, 102, 241, 0.05)' }}>
@@ -672,16 +672,16 @@ const ProductDetail = () => {
               </div>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#4ade80', fontWeight: 700, fontSize: '0.9rem' }}>
-               <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#4ade80' }} />
-               Verified Master
+              <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#4ade80' }} />
+              Verified Seller
             </div>
           </div>
         </motion.div>
       </div>
-      
+
       <div style={{ marginTop: '8rem', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8rem' }}>
         <div>
-          <h3 style={{ fontSize: '2.5rem', marginBottom: '3rem' }}>Product Dialogue</h3>
+          <h3 style={{ fontSize: '2.5rem', marginBottom: '3rem' }}>Customer Reviews</h3>
           <div className="stagger-in">
             {product.reviews.length > 0 ? product.reviews.map(r => (
               <motion.div key={r.id} className="glass-card" style={{ marginBottom: '2rem', padding: '2.5rem' }}>
@@ -699,39 +699,39 @@ const ProductDetail = () => {
               </motion.div>
             )) : (
               <div className="glass-card" style={{ textAlign: 'center', padding: '5rem', color: 'var(--text-dim)' }}>
-                 No entries in the dialogue yet.
+                No entries in the dialogue yet.
               </div>
             )}
           </div>
         </div>
 
         <div>
-          <h3 style={{ fontSize: '2.5rem', marginBottom: '3rem' }}>Submit Entry</h3>
+          <h3 style={{ fontSize: '2.5rem', marginBottom: '3rem' }}>Write a Review</h3>
           <form onSubmit={submitReview} className="glass-card" style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem', padding: '3rem' }}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              <label style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--text-dim)', marginLeft: '0.5rem' }}>Quality Appreciation</label>
-              <select 
-                value={newRating} 
+              <label style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--text-dim)', marginLeft: '0.5rem' }}>Your Rating</label>
+              <select
+                value={newRating}
                 onChange={(e) => setNewRating(Number(e.target.value))}
                 className="input-premium"
                 style={{ appearance: 'none' }}
               >
-                {[5,4,3,2,1].map(n => <option key={n} value={n}>{n} Points - {n === 5 ? 'Exceptional' : 'Worthy'}</option>)}
+                {[5, 4, 3, 2, 1].map(n => <option key={n} value={n}>{n} Points - {n === 5 ? 'Exceptional' : 'Worthy'}</option>)}
               </select>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              <label style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--text-dim)', marginLeft: '0.5rem' }}>Expert Comment</label>
-              <textarea 
+              <label style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--text-dim)', marginLeft: '0.5rem' }}>Your Comments</label>
+              <textarea
                 value={newComment}
                 onChange={(e) => setNewComment(e.target.value)}
                 required
                 rows={6}
                 className="input-premium"
                 style={{ resize: 'none' }}
-                placeholder="Share your detailed analysis..."
+                placeholder="Tell others what you think about this product..."
               />
             </div>
-            <button type="submit" className="btn-primary" style={{ padding: '1.25rem' }}>Broadcast Review</button>
+            <button type="submit" className="btn-primary" style={{ padding: '1.25rem' }}>Submit Review</button>
           </form>
         </div>
       </div>
@@ -741,7 +741,7 @@ const ProductDetail = () => {
 
 const CartView = () => {
   const { cart, products, removeFromCart, location } = useAppContext();
-  
+
   const cartItems = useMemo(() => cart.map(c => {
     const p = products.find(prod => prod.id === c.id);
     return p ? { ...p, qty: c.qty } : null;
@@ -751,21 +751,21 @@ const CartView = () => {
 
   return (
     <div className="container" style={{ padding: '8rem 0' }}>
-      <motion.h2 
+      <motion.h2
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         style={{ fontSize: '4rem', marginBottom: '4rem', letterSpacing: '-3px' }}
       >
-        Your Collection
+        My Cart
       </motion.h2>
-      
+
       {cartItems.length > 0 ? (
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 420px', gap: '6rem' }}>
           <div className="stagger-in" style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
             {cartItems.map((item, i) => (
-              <motion.div 
-                key={i} 
-                className="glass-card" 
+              <motion.div
+                key={i}
+                className="glass-card"
                 style={{ display: 'flex', gap: '3rem', alignItems: 'center', padding: '2rem' }}
               >
                 <div style={{ position: 'relative' }}>
@@ -774,93 +774,93 @@ const CartView = () => {
                     {item.qty}
                   </div>
                 </div>
-                
+
                 <div style={{ flex: 1 }}>
                   <div style={{ fontSize: '0.8rem', color: 'var(--accent)', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '0.5rem' }}>{item.category}</div>
                   <h4 style={{ fontSize: '1.8rem', marginBottom: '0.75rem' }}>{item.name}</h4>
                   <div style={{ color: 'var(--text-dim)', fontWeight: 600, fontSize: '1.1rem' }}>By {item.sellerName}</div>
-                  
-                  <motion.button 
+
+                  <motion.button
                     whileHover={{ scale: 1.05, color: '#ff4b4b' }}
-                    onClick={() => removeFromCart(item.id)} 
+                    onClick={() => removeFromCart(item.id)}
                     style={{ background: 'transparent', color: 'var(--text-muted)', fontSize: '0.9rem', marginTop: '1.5rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1px' }}
                   >
-                    RELINQUISH
+                    REMOVE
                   </motion.button>
                 </div>
-                
+
                 <div style={{ textAlign: 'right' }}>
                   <div style={{ fontSize: '2.2rem', fontWeight: 900, color: 'white', letterSpacing: '-1.5px' }}>${(item.price * item.qty).toFixed(2)}</div>
-                  <div style={{ fontSize: '0.9rem', color: 'var(--text-muted)', fontWeight: 600 }}>Secure Delivery Inbound</div>
+                  <div style={{ fontSize: '0.9rem', color: 'var(--text-muted)', fontWeight: 600 }}>Free Delivery</div>
                 </div>
               </motion.div>
             ))}
           </div>
-          
+
           <div>
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
-              className="glass-card" 
+              className="glass-card"
               style={{ position: 'sticky', top: '120px', padding: '3.5rem' }}
             >
-              <h3 style={{ marginBottom: '3rem', fontSize: '2rem' }}>Acquisition Summary</h3>
-              
+              <h3 style={{ marginBottom: '3rem', fontSize: '2rem' }}>Order Summary</h3>
+
               <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', padding: '1.5rem', background: 'rgba(255,255,255,0.03)', borderRadius: '20px', marginBottom: '3rem', border: '1px solid var(--border-color)' }}>
                 <MapPin size={24} color="var(--primary)" />
                 <div>
-                   <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 800, letterSpacing: '1px' }}>Destination</div>
-                   <div style={{ fontWeight: 800, fontSize: '1.1rem' }}>{location}</div>
+                  <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 800, letterSpacing: '1px' }}>Deliver To</div>
+                  <div style={{ fontWeight: 800, fontSize: '1.1rem' }}>{location}</div>
                 </div>
               </div>
-              
+
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', marginBottom: '3rem' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '1.1rem' }}>
-                  <span style={{ color: 'var(--text-dim)' }}>Portfolio Total</span>
+                  <span style={{ color: 'var(--text-dim)' }}>Subtotal</span>
                   <span style={{ fontWeight: 700 }}>${total.toFixed(2)}</span>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '1.1rem' }}>
-                  <span style={{ color: 'var(--text-dim)' }}>Global Priority Shipping</span>
-                  <span style={{ color: '#4ade80', fontWeight: 800 }}>COMPLIMENTARY</span>
+                  <span style={{ color: 'var(--text-dim)' }}>Delivery Charges</span>
+                  <span style={{ color: '#4ade80', fontWeight: 800 }}>FREE</span>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '1.1rem' }}>
-                  <span style={{ color: 'var(--text-dim)' }}>Luxury Tax</span>
-                  <span style={{ color: 'var(--text-muted)' }}>Inclusive</span>
+                  <span style={{ color: 'var(--text-dim)' }}>GST & Taxes</span>
+                  <span style={{ color: 'var(--text-muted)' }}>Included</span>
                 </div>
               </div>
-              
+
               <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '2rem 0' }} />
-              
+
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4rem' }}>
-                <span style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--text-dim)' }}>Investment</span>
+                <span style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--text-dim)' }}>Total Amount</span>
                 <span style={{ fontSize: '2.8rem', fontWeight: 950, letterSpacing: '-2px' }}>${total.toFixed(2)}</span>
               </div>
-              
-              <button 
-                className="btn-primary" 
+
+              <button
+                className="btn-primary"
                 style={{ width: '100%', padding: '1.5rem', fontSize: '1.2rem' }}
-                onClick={() => alert('Initiating Secure High-Threshold Payment Protocol...')}
+                onClick={() => alert('Redirecting to secure payment gateway...')}
               >
-                AUCTION CHECKOUT
+                PROCEED TO CHECKOUT
               </button>
-              
+
               <div style={{ marginTop: '2rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.75rem', color: 'var(--text-muted)', fontSize: '0.85rem' }}>
                 <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#4ade80' }} />
-                QUANTUM ENCRYPTED
+                100% SECURE PAYMENT
               </div>
             </motion.div>
           </div>
         </div>
       ) : (
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="glass-card" 
+          className="glass-card"
           style={{ textAlign: 'center', padding: '10rem 2rem' }}
         >
-           <ShoppingBag size={100} style={{ color: 'rgba(255,255,255,0.05)', marginBottom: '3rem' }} />
-           <p style={{ color: 'var(--text-dim)', fontSize: '1.5rem', marginBottom: '4rem' }}>Your private collection is currently empty.</p>
-           <Link to="/" className="btn-primary" style={{ textDecoration: 'none', padding: '1.25rem 4rem', display: 'inline-block', fontSize: '1.1rem' }}>Begin Discovery</Link>
+          <ShoppingBag size={100} style={{ color: 'rgba(255,255,255,0.05)', marginBottom: '3rem' }} />
+          <p style={{ color: 'var(--text-dim)', fontSize: '1.5rem', marginBottom: '4rem' }}>Your cart is empty. Start shopping now!</p>
+          <Link to="/" className="btn-primary" style={{ textDecoration: 'none', padding: '1.25rem 4rem', display: 'inline-block', fontSize: '1.1rem' }}>Browse Products</Link>
         </motion.div>
       )}
     </div>
@@ -872,7 +872,7 @@ const CartView = () => {
 const App = () => {
   const [allProducts, setAllProducts] = useState<Product[]>(INITIAL_PRODUCTS);
   const [user, setUser] = useState<UserProfile | null>(null);
-  const [cart, setCart] = useState<{id: string, qty: number}[]>([]);
+  const [cart, setCart] = useState<{ id: string, qty: number }[]>([]);
   const [location, setLocation] = useState<string>('New York, USA');
 
   const addToCart = (pid: string) => {
@@ -888,7 +888,7 @@ const App = () => {
   };
 
   const addReview = (pid: string, review: Review) => {
-    setAllProducts(prev => prev.map(p => 
+    setAllProducts(prev => prev.map(p =>
       p.id === pid ? { ...p, reviews: [review, ...p.reviews], rating: Number(((p.rating * p.reviews.length + review.rating) / (p.reviews.length + 1)).toFixed(1)) } : p
     ));
   };
@@ -910,7 +910,7 @@ const App = () => {
           <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '90px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '4rem' }}>
               <Link to="/" style={{ textDecoration: 'none', color: 'white', display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                <motion.div 
+                <motion.div
                   whileHover={{ rotate: 10, scale: 1.1 }}
                   style={{ background: 'linear-gradient(135deg, var(--primary), var(--accent))', padding: '12px', borderRadius: '18px', boxShadow: '0 8px 16px var(--primary-glow)' }}
                 >
@@ -918,8 +918,8 @@ const App = () => {
                 </motion.div>
                 <span className="gradient-text" style={{ fontSize: '1.8rem', fontWeight: 950, letterSpacing: '-1.5px' }}>VENDORA</span>
               </Link>
-              
-              <motion.div 
+
+              <motion.div
                 whileHover={{ scale: 1.05 }}
                 onClick={updateLocation}
                 style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'var(--text-dim)', fontSize: '0.9rem', background: 'rgba(255,255,255,0.03)', padding: '0.6rem 1.25rem', borderRadius: '30px', border: '1px solid var(--border-color)' }}
@@ -929,16 +929,16 @@ const App = () => {
                 <ChevronDown size={14} />
               </motion.div>
             </div>
-            
+
             <div style={{ display: 'flex', gap: '3rem', alignItems: 'center' }}>
-              <Link to="/seller" style={{ color: 'white', textDecoration: 'none', fontSize: '1rem', fontWeight: 600 }}>Marketplace Portal</Link>
+              <Link to="/seller" style={{ color: 'white', textDecoration: 'none', fontSize: '1rem', fontWeight: 600 }}>Sell on Vendora</Link>
               <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
                 <Link to="/cart" style={{ color: 'white', position: 'relative' }}>
                   <ShoppingBag size={26} />
                   {cart.length > 0 && (
-                    <motion.span 
-                      initial={{ scale: 0 }} 
-                      animate={{ scale: 1 }} 
+                    <motion.span
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
                       style={{ position: 'absolute', top: '-8px', right: '-12px', background: 'var(--secondary)', color: 'white', fontSize: '11px', fontWeight: 900, borderRadius: '50%', width: '22px', height: '22px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px solid var(--bg-darker)', boxShadow: '0 4px 8px rgba(236, 72, 153, 0.4)' }}
                     >
                       {cart.reduce((a, b) => a + b.qty, 0)}
@@ -947,9 +947,9 @@ const App = () => {
                 </Link>
                 <div style={{ width: '1px', height: '30px', background: 'var(--border-color)' }} />
                 {user ? (
-                  <motion.button 
+                  <motion.button
                     whileHover={{ scale: 1.05 }}
-                    onClick={() => setUser(null)} 
+                    onClick={() => setUser(null)}
                     style={{ background: 'transparent', color: 'white', display: 'flex', alignItems: 'center', gap: '1rem' }}
                   >
                     <div style={{ width: '40px', height: '40px', background: 'rgba(255,255,255,0.1)', border: '1px solid var(--border-color)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -962,7 +962,7 @@ const App = () => {
                     <div style={{ width: '40px', height: '40px', background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border-color)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                       <User size={22} />
                     </div>
-                    <span style={{ fontSize: '1rem', fontWeight: 700 }}>Launch App</span>
+                    <span style={{ fontSize: '1rem', fontWeight: 700 }}>Login</span>
                   </Link>
                 )}
               </div>
@@ -984,31 +984,31 @@ const App = () => {
         <footer style={{ borderTop: '1px solid var(--border-color)', padding: '5rem 0', background: 'rgba(0,0,0,0.3)', marginTop: '4rem' }}>
           <div className="container">
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '4rem', marginBottom: '4rem' }}>
-               <div>
-                  <div style={{ fontSize: '1.5rem', fontWeight: 900, marginBottom: '1.5rem' }}>VENDORA</div>
-                  <p style={{ color: 'var(--text-dim)', lineHeight: 1.6 }}>Modern marketplace connecting independent sellers with global buyers.</p>
-               </div>
-               <div>
-                  <h4 style={{ marginBottom: '1.5rem' }}>Marketplace</h4>
-                  <ul style={{ listStyle: 'none', color: 'var(--text-dim)', display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
-                     <li>All Products</li>
-                     <li>Popular Stores</li>
-                     <li>Merchant Program</li>
-                  </ul>
-               </div>
-               <div>
-                  <h4 style={{ marginBottom: '1.5rem' }}>Support</h4>
-                  <ul style={{ listStyle: 'none', color: 'var(--text-dim)', display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
-                     <li>Help Center</li>
-                     <li>Contact Us</li>
-                  </ul>
-               </div>
+              <div>
+                <div style={{ fontSize: '1.5rem', fontWeight: 900, marginBottom: '1.5rem' }}>VENDORA</div>
+                <p style={{ color: 'var(--text-dim)', lineHeight: 1.6 }}>India's growing marketplace connecting lakhs of sellers and buyers across the country.</p>
+              </div>
+              <div>
+                <h4 style={{ marginBottom: '1.5rem' }}>Marketplace</h4>
+                <ul style={{ listStyle: 'none', color: 'var(--text-dim)', display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+                  <li>All Products</li>
+                  <li>Popular Stores</li>
+                  <li>Merchant Program</li>
+                </ul>
+              </div>
+              <div>
+                <h4 style={{ marginBottom: '1.5rem' }}>Support</h4>
+                <ul style={{ listStyle: 'none', color: 'var(--text-dim)', display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+                  <li>Help Center</li>
+                  <li>Contact Us</li>
+                </ul>
+              </div>
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-dim)', fontSize: '0.9rem', borderTop: '1px solid var(--border-color)', paddingTop: '2rem' }}>
-              <div>© 2026 Vendora Marketplace.</div>
+              <div>© 2026 Vendora. Made with ❤️ in India.</div>
               <div style={{ display: 'flex', gap: '2rem' }}>
-                 <span>Instagram</span>
-                 <span>Twitter</span>
+                <span>Instagram</span>
+                <span>Twitter</span>
               </div>
             </div>
           </div>
